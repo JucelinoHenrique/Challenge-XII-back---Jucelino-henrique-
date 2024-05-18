@@ -4,7 +4,9 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CarsModule } from './cars/cars.module';
+import { DriversModule } from './drivers/drivers.module';
 import { Car } from './cars/car.entity';
+import { Driver } from './drivers/driver.entity';
 
 @Module({
   imports: [
@@ -18,10 +20,12 @@ import { Car } from './cars/car.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [Car],
-      synchronize: false,
+      entities: [Car, Driver],
+      synchronize: true,
+      logging: true,
     }),
     CarsModule,
+    DriversModule,
   ],
   controllers: [AppController],
   providers: [AppService],
