@@ -1,77 +1,93 @@
-<<<<<<< HEAD
-# Challenge-XII-back---Jucelino-henrique-
-=======
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Projeto de Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto é uma API backend desenvolvida utilizando o framework Nest.js e TypeScript, com banco de dados MySQL. O objetivo da API é fornecer dados de carros, e criação de motoristas seguindo o padrão MVC (Model-View-Controller).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias Utilizadas
 
-## Description
+- **Nest.js**: Framework Node.js para construção de aplicações server-side escaláveis.
+- **TypeScript**: Linguagem de programação que adiciona tipos estáticos ao JavaScript.
+- **MySQL**: Sistema de gerenciamento de banco de dados relacional.
+- **TypeORM**: ORM (Object-Relational Mapping) utilizado para interagir com o banco de dados MySQL.
+- **Class-validator**: Biblioteca para validação de objetos em TypeScript.
+- **Class-transformer**: Biblioteca para transformar objetos entre diferentes formas em TypeScript.
+- **Axios**: Cliente HTTP baseado em Promises para realizar requisições.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Estrutura do Projeto
 
-## Installation
+A estrutura do projeto segue o padrão MVC (Model-View-Controller):
 
-```bash
-$ npm install
-```
+- **Model**: Define a estrutura das entidades e a lógica de acesso ao banco de dados.
+- **View**: Como este é um backend, não há uma camada de visualização.
+- **Controller**: Manipula as requisições HTTP, interagindo com os serviços e retornando as respostas apropriadas.
 
-## Running the app
+## como fazer uma requisição
 
-```bash
-# development
-$ npm run start
+## GET(ROTA: localhost:port/cars)
 
-# watch mode
-$ npm run start:dev
+irá retornar os carros
 
-# production mode
-$ npm run start:prod
-```
+## POST(ROTA: localhost:port/cars)
 
-## Test
+## POST(ROTA: localhost:port/drivers):
 
-```bash
-# unit tests
-$ npm run test
+example:
+{
+"firstName": "exemple",
+"lastName": "example",
+"email": "example.example@example.com",
+"country": "example",
+"city": "example",
+"postalCode": "00000-000",
+"isOwnCar": true,
+"carModel": "example"
+}
 
-# e2e tests
-$ npm run test:e2e
+## Instalação
 
-# test coverage
-$ npm run test:cov
-```
+Para rodar este projeto localmente, siga os passos abaixo:
 
-## Support
+1. Clone o repositório:
+   ```sh
+   git clone https://github.com/seu-usuario/seu-repositorio.git
+   ```
+2. Navegue até o diretório do projeto:
+   ```sh
+   cd seu-repositorio
+   ```
+3. Instale as dependências:
+   ```sh
+   npm install
+   ```
+4. Configure as variáveis de ambiente. Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
+   `env
+DB_HOST=your_host
+ DB_PORT=your_port
+ DB_USERNAME=your_username
+ DB_PASSWORD=your_password
+ DB_DATABASE=your_database_name
+ REST_COUNTRIES_API_URL=https://restcountries.com/v3.1/all
+ COUNTRIES_URL=https://countriesnow.space/api/v0.1/countries
+ CITIES_URL=https://countriesnow.space/api/v0.1/countries/cities
+ `
+   obs: você pode seguir o .env.example do projeto
+5. Rode as migrações para configurar o banco de dados:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+    ```sh
+    npm run typeorm migration:run
+    ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+6. Inicie o servidor:
+   ```sh
+   npm run start
+   ```
 
-## License
+## Endpoints
 
-Nest is [MIT licensed](LICENSE).
->>>>>>> e43bde4 (build: configurações das dependencias)
+A API oferece os seguintes endpoints:
+
+- **GET /cars**: Retorna uma lista de veículos.
+- **POST /cars**: Adiciona um novo veículo.
+- **POST /drivers**: adiciona um novo motorista.
+- **GET /drivers/country**: Retorna os paises.
+- **GET /drivers/country**: Retorna os paises.
