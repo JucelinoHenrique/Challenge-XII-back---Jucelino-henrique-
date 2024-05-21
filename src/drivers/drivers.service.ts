@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ConfigService } from '@nestjs/config';
 import { CreateDriverDto } from './dto/driver.dto';
 import { Driver } from './driver.entity';
 import axios from 'axios';
@@ -8,14 +9,17 @@ import axios from 'axios';
 @Injectable()
 export class DriversService {
   private readonly logger = new Logger(DriversService.name);
-  private readonly countriesUrl =
-    'https://countriesnow.space/api/v0.1/countries';
-  private readonly citiesUrl =
-    'https://countriesnow.space/api/v0.1/countries/cities';
+  private readonly countriesUrl: string;
+  private readonly citiesUrl: string;
+
   constructor(
     @InjectRepository(Driver)
     private readonly driversRepository: Repository<Driver>,
-  ) {}
+    private readonly configService: ConfigService, // Injeta o ConfigService
+  ) {
+    this.countriesUrl = this.configService.get<string>('COUNTRIES_URL');
+    this.citiesUrl = this.configService.get<string>('CITIES_URL');
+  }
 
   async findAll(): Promise<Driver[]> {
     return this.driversRepository.find();
@@ -58,6 +62,7 @@ export class DriversService {
       );
     }
   }
+
   async create(createDriverDto: CreateDriverDto): Promise<Driver> {
     this.logger.log('Creating a new driver');
     const driver = this.driversRepository.create(createDriverDto);
