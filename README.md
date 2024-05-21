@@ -20,6 +20,28 @@ A estrutura do projeto segue o padrão MVC (Model-View-Controller):
 - **View**: Como este é um backend, não há uma camada de visualização.
 - **Controller**: Manipula as requisições HTTP, interagindo com os serviços e retornando as respostas apropriadas.
 
+## como fazer uma requisição
+
+## GET(ROTA: localhost:port/cars)
+
+irá retornar os carros
+
+## POST(ROTA: localhost:port/cars)
+
+## POST(ROTA: localhost:port/drivers):
+
+example:
+{
+"firstName": "exemple",
+"lastName": "example",
+"email": "example.example@example.com",
+"country": "example",
+"city": "example",
+"postalCode": "00000-000",
+"isOwnCar": true,
+"carModel": "example"
+}
+
 ## Instalação
 
 Para rodar este projeto localmente, siga os passos abaixo:
@@ -38,14 +60,34 @@ Para rodar este projeto localmente, siga os passos abaixo:
    ```
 4. Configure as variáveis de ambiente. Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
    `env
-   DB_HOST=your_host
-    DB_PORT=your_port
-    DB_USERNAME=your_username
-    DB_PASSWORD=your_password
-    DB_DATABASE=your_database_name
-    REST_COUNTRIES_API_URL=https://restcountries.com/v3.1/all
-    COUNTRIES_URL=https://countriesnow.space/api/v0.1/countries
-    CITIES_URL=https://countriesnow.space/api/v0.1/countries/cities
-    `
+DB_HOST=your_host
+ DB_PORT=your_port
+ DB_USERNAME=your_username
+ DB_PASSWORD=your_password
+ DB_DATABASE=your_database_name
+ REST_COUNTRIES_API_URL=https://restcountries.com/v3.1/all
+ COUNTRIES_URL=https://countriesnow.space/api/v0.1/countries
+ CITIES_URL=https://countriesnow.space/api/v0.1/countries/cities
+ `
    obs: você pode seguir o .env.example do projeto
-   5
+5. Rode as migrações para configurar o banco de dados:
+
+
+    ```sh
+    npm run typeorm migration:run
+    ```
+
+6. Inicie o servidor:
+   ```sh
+   npm run start
+   ```
+
+## Endpoints
+
+A API oferece os seguintes endpoints:
+
+- **GET /cars**: Retorna uma lista de veículos.
+- **POST /cars**: Adiciona um novo veículo.
+- **POST /drivers**: adiciona um novo motorista.
+- **GET /drivers/country**: Retorna os paises.
+- **GET /drivers/country**: Retorna os paises.
