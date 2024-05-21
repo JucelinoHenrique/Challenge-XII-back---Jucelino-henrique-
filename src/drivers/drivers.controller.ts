@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Logger } from '@nestjs/common';
+import { Controller, Post, Body, Get, Logger, Query } from '@nestjs/common';
 import { DriversService } from './drivers.service';
 import { CreateDriverDto } from './dto/driver.dto';
 import { Driver } from './driver.entity';
@@ -18,12 +18,12 @@ export class DriversController {
   }
 
   @Get('countries')
-  getCountries(): string[] {
-    return ['Brasil', 'Estados Unidos', 'Canadá', 'Alemanha', 'França'];
+  async getCountries() {
+    return this.driversService.findCountries();
   }
 
   @Get('cities')
-  getCities(): string[] {
-    return ['São Paulo', 'Nova York', 'Toronto', 'Berlim', 'Paris'];
+  async getCities(@Query('country') country: string) {
+    return this.driversService.findCities(country);
   }
 }
