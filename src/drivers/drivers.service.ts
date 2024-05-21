@@ -15,7 +15,7 @@ export class DriversService {
   constructor(
     @InjectRepository(Driver)
     private readonly driversRepository: Repository<Driver>,
-    private readonly configService: ConfigService, // Injeta o ConfigService
+    private readonly configService: ConfigService,
   ) {
     this.countriesUrl = this.configService.get<string>('COUNTRIES_URL');
     this.citiesUrl = this.configService.get<string>('CITIES_URL');
