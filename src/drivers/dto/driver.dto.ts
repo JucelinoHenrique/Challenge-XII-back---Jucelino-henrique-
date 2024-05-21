@@ -7,35 +7,37 @@ import {
 } from 'class-validator';
 
 export class CreateDriverDto {
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'First name is required' })
   @IsString()
   firstName: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Last name is required' })
   @IsString()
   lastName: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Email is required' })
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Country is required' })
   @IsString()
   country: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'City is required' })
   @IsString()
   city: string;
 
-  @IsNotEmpty()
-  @Matches(/^[0-9]{5}-[0-9]{3}$/)
+  @IsNotEmpty({ message: 'Postal code is required' })
+  @Matches(/^[0-9]{5}-[0-9]{3}$/, {
+    message: 'Postal code must be in the format 12345-678',
+  })
   postalCode: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'isOwnCar is required' })
   @IsBoolean()
   isOwnCar: boolean;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Car model is required' })
   @IsString()
   carModel: string;
 }

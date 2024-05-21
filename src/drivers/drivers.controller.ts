@@ -1,7 +1,15 @@
-import { Controller, Post, Body, Get, Logger, Query } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Logger,
+  Query,
+  ValidationPipe,
+  UsePipes,
+} from '@nestjs/common';
 import { DriversService } from './drivers.service';
 import { CreateDriverDto } from './dto/driver.dto';
-import { Driver } from './driver.entity';
 
 @Controller('drivers')
 export class DriversController {
@@ -10,11 +18,9 @@ export class DriversController {
   constructor(private readonly driversService: DriversService) {}
 
   @Post()
-  async create(@Body() createDriverDto: CreateDriverDto): Promise<Driver> {
-    this.logger.log('Received request to create driver');
-    const createdDriver = await this.driversService.create(createDriverDto);
-    this.logger.log(`Driver created with ID: ${createdDriver.id}`);
-    return createdDriver;
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  async create(@Body() createDriverDto: CreateDriverDto) {
+    return this.driversService.create(createDriverDto);
   }
 
   @Get('countries')

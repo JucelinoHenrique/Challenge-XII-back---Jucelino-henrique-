@@ -1,4 +1,3 @@
-// src/filters/http-exception.filter.ts
 import {
   ExceptionFilter,
   Catch,
@@ -17,32 +16,28 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const status = exception.getStatus();
 
     const exceptionResponse = exception.getResponse();
-    const errorResponse =
-      typeof exceptionResponse === 'object' && exceptionResponse !== null
-        ? exceptionResponse
-        : { message: exceptionResponse };
+    const responseBody =
+      typeof exceptionResponse === 'object'
+        ? { message: exception.message, ...exceptionResponse }
+        : { message: exception.message, error: exceptionResponse };
 
     if (
       status === HttpStatus.BAD_REQUEST &&
-      Array.isArray(errorResponse['message'])
+      exceptionResponse instanceof Array
     ) {
-      const validationErrors = errorResponse['message'] as ValidationError[];
+      const validationErrors = exceptionResponse as ValidationError[];
       const formattedErrors = this.formatValidationErrors(validationErrors);
-      response.status(status).json({
-        message: 'Validation failed',
-        errors: formattedErrors,
-      });
+      response
+        .status(status)
+        .json({ message: 'Validation failed', errors: formattedErrors });
     } else {
-      response.status(status).json({
-        message: exception.message,
-        ...errorResponse,
-      });
+      response.status(status).json(responseBody);
     }
   }
 
   private formatValidationErrors(errors: ValidationError[]): any {
     return errors.reduce((acc, err) => {
-      acc[err.property] = Object.values(err.constraints || {});
+      acc[err.property] = Object.values(err.constraints);
       return acc;
     }, {});
   }
