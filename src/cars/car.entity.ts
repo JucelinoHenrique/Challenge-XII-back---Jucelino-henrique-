@@ -6,6 +6,9 @@ export class Car {
   id: number;
 
   @Column()
+  type: string;
+
+  @Column()
   imageUrl: string;
 
   @Column()
